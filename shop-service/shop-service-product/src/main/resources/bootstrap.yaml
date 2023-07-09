@@ -1,0 +1,25 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: shop-service-product
+
+  mvc:
+    servlet:
+      path: "/product"
+
+  cloud:
+    nacos:
+      server-addr: ${NACOS_HOST:localhost}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+
+      discovery:
+        namespace: ${NACOS_NAMESPACE:shop-cloud}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+
+      config:
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        group: ${spring.cloud.nacos.discovery.group}
+        file-extension: yaml
