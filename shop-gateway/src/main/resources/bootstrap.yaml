@@ -1,0 +1,27 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: shop-gateway
+
+  cloud:
+    gateway:
+      enabled: true
+
+    nacos:
+      server-addr: ${NACOS_HOST:localhost}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+
+      discovery:
+        namespace: ${NACOS_NAMESPACE:shop-cloud}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+
+      config:
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        group: ${spring.cloud.nacos.discovery.group}
+        file-extension: yaml
+        shared-configs:
+          - data-id: database
+            group: DEFAULT_GROUP
