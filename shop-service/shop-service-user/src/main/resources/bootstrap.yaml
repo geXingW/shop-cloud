@@ -23,3 +23,6 @@ spring:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         group: ${spring.cloud.nacos.discovery.group}
         file-extension: yaml
+        shared-configs:
+          - data-id: database.yaml
+            refresh: true

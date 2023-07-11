@@ -5,34 +5,38 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.gexingw</groupId>
-        <artifactId>shop-service</artifactId>
+        <artifactId>shop-common</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>shop-service-product</artifactId>
+    <artifactId>shop-common-oauth2</artifactId>
     <version>${revision}</version>
 
+    <properties>
+    </properties>
+
     <dependencies>
+
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.gexingw</groupId>
+            <artifactId>shop-common-db</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.gexingw</groupId>
-            <artifactId>shop-common-core</artifactId>
+            <artifactId>shop-common-security</artifactId>
         </dependency>
 
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-authorization-server</artifactId>
         </dependency>
 
     </dependencies>

@@ -11,12 +11,18 @@
 
     <artifactId>shop-service</artifactId>
     <version>${revision}</version>
+    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <modules>
+        <module>shop-service-product</module>
+        <module>shop-service-user</module>
+    </modules>
 
     <dependencies>
 
