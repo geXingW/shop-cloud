@@ -2,7 +2,7 @@ package com.gexingw.shop.auth.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gexingw.shop.auth.mapper.UserMapper;
-import com.gexingw.shop.common.security.entity.User;
+import com.gexingw.shop.common.oauth2.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

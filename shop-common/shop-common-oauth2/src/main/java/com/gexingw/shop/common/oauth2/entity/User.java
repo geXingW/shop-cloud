@@ -1,4 +1,4 @@
-package com.gexingw.shop.common.security.entity;
+package com.gexingw.shop.common.oauth2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

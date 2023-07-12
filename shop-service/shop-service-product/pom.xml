@@ -21,6 +21,11 @@
 
         <dependency>
             <groupId>com.gexingw</groupId>
+            <artifactId>shop-common-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.gexingw</groupId>
             <artifactId>shop-common-core</artifactId>
         </dependency>
 
@@ -33,6 +38,12 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!--suppress MavenDuplicateDependenciesInspection -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
     </dependencies>

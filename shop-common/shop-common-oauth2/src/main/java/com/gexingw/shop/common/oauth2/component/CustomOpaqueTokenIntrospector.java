@@ -1,6 +1,6 @@
 package com.gexingw.shop.common.oauth2.component;
 
-import com.gexingw.shop.common.security.entity.User;
+import com.gexingw.shop.common.oauth2.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
@@ -23,9 +23,7 @@ public class CustomOpaqueTokenIntrospector implements org.springframework.securi
 
     @Override
     public OAuth2AuthenticatedPrincipal introspect(String token) {
-        System.out.println(oAuth2AuthorizationService.findByToken(token, OAuth2TokenType.ACCESS_TOKEN));
         OAuth2Authorization oAuth2Authorization = oAuth2AuthorizationService.findByToken(token, OAuth2TokenType.ACCESS_TOKEN);
-        System.out.println(oAuth2Authorization);
 
         if (oAuth2Authorization == null) {
             throw new RuntimeException("Token不存在！");

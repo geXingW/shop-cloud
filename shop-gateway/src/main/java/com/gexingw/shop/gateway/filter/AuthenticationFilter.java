@@ -1,7 +1,7 @@
 package com.gexingw.shop.gateway.filter;
 
-import com.gexingw.shop.common.security.entity.AuthConstant;
-import com.gexingw.shop.common.security.entity.User;
+import com.gexingw.shop.common.core.constant.AuthConstant;
+import com.gexingw.shop.common.oauth2.entity.User;
 import com.gexingw.shop.gateway.component.AuthenticationConfigProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -67,6 +67,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         ReactiveSecurityContextHolder.withAuthentication(principal);
         User user = (User) principal.getPrincipal();
         request.mutate().header(AuthConstant.HEADER_USER_ID, user.getId().toString());
+        request.mutate().header(AuthConstant.HEADER_USERNAME, user.getUsername());
+        request.mutate().header(AuthConstant.HEADER_USER_PHONE, user.getPhone());
 
         return chain.filter(exchange);
     }

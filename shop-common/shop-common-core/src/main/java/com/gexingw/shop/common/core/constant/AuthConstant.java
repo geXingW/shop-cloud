@@ -1,4 +1,4 @@
-package com.gexingw.shop.common.security.entity;
+package com.gexingw.shop.common.core.constant;
 
 /**
  * shop-cloud.
@@ -9,5 +9,9 @@ package com.gexingw.shop.common.security.entity;
 public interface AuthConstant {
 
     String HEADER_USER_ID = "SHOP-AUTH-USER-ID";
+
+    String HEADER_USERNAME = "SHOP-AUTH-USER-USERNAME";
+
+    String HEADER_USER_PHONE = "SHOP-AUTH-PHONE";
 
 }

@@ -23,11 +23,6 @@
             <artifactId>shop-common-db</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.gexingw</groupId>
-            <artifactId>shop-common-security</artifactId>
-        </dependency>
-
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>org.springframework.security</groupId>
