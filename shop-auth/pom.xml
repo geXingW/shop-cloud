@@ -34,11 +34,6 @@
             <artifactId>shop-common-oauth2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.gexingw</groupId>
-            <artifactId>shop-common-security</artifactId>
-        </dependency>
-
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
