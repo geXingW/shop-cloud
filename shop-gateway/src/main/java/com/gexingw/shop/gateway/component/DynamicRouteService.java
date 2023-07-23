@@ -1,6 +1,5 @@
 package com.gexingw.shop.gateway.component;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
@@ -30,7 +29,8 @@ public class DynamicRouteService implements ApplicationEventPublisherAware {
     }
 
     @Override
-    public void setApplicationEventPublisher(@NotNull ApplicationEventPublisher applicationEventPublisher) {
+    @SuppressWarnings("NullableProblems")
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.publisher = applicationEventPublisher;
     }
 

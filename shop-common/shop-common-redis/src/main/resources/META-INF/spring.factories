@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.gexingw.shop.common.redis.RedisAutoConfiguration,\
+  com.gexingw.shop.common.redis.config.RedisSerializeConfiguration

@@ -1,5 +1,6 @@
 package com.gexingw.shop.common.security.component;
 
+import com.gexingw.shop.common.core.component.AuthInfo;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,8 @@ import java.util.List;
 @Data
 @Builder
 public class Authentication implements org.springframework.security.core.Authentication {
+
+    private static final long serialVersionUID = -952647711494693618L;
 
     private AuthInfo authInfo;
 

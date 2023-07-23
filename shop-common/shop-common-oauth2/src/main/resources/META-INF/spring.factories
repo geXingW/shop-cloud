@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.gexingw.shop.common.oauth2.config.OAuth2AutoConfiguration

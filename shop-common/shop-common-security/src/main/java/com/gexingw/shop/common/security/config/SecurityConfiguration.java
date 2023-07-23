@@ -1,6 +1,8 @@
 package com.gexingw.shop.common.security.config;
 
 import com.gexingw.shop.common.security.filter.AuthenticationFilter;
+import com.gexingw.shop.common.security.handler.AccessDeniedHandler;
+import com.gexingw.shop.common.security.handler.AuthenticationEntryPointHandler;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,18 +37,21 @@ public class SecurityConfiguration {
 
     @Bean
     @SneakyThrows
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
         // 禁用CSRF校验
-        http.csrf().disable();
+        httpSecurity.csrf().disable();
         // 禁用跨区配置
-        http.cors().disable();
+        httpSecurity.cors().disable();
         // 无状态Session配置
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // 认证信息配置
-        http.addFilterAt(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterAt(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();
+        // 异常处理
+        httpSecurity.exceptionHandling().accessDeniedHandler(new AccessDeniedHandler()).authenticationEntryPoint(new AuthenticationEntryPointHandler());
+
+        return httpSecurity.build();
     }
 
     /**

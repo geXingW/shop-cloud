@@ -22,14 +22,10 @@
     <modules>
         <module>shop-service-product</module>
         <module>shop-service-user</module>
+        <module>shop-service-auth</module>
     </modules>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
 
     </dependencies>
 

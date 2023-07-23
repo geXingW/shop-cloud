@@ -23,5 +23,7 @@ spring:
         group: ${spring.cloud.nacos.discovery.group}
         file-extension: yaml
         shared-configs:
-          - data-id: database
+          - data-id: shop-common-database.yaml
+            group: DEFAULT_GROUP
+          - data-id: shop-common-redis.yaml
             group: DEFAULT_GROUP

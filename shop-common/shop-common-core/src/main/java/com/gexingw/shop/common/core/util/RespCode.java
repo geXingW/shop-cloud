@@ -28,6 +28,10 @@ public enum RespCode {
     UN_AUTHORIZATION(401000, "请先登录！"),
     AUTHORIZATION_EXPIRED(401001, "登录已过期，请重新登录！"),
     INVALID_CREDENTIALS(401002, "凭证无效，请检查！"),
+    INVALID_USERNAME_OR_PASSWORD(401003, "用户名或密码错误！"),
+    INVALID_CLIENT(401004, "ClientId或密码错误！！"),
+
+    PERMISSION_DENIED(403001, "无权限！"),
 
     NOT_FOUND(404000, "未找到资源！"),
     SOURCE_NOT_FOUND(404001, "记录不存在！"),
@@ -52,13 +56,6 @@ public enum RespCode {
     USER_OR_PASSWORD_ERROR(200100, "用户名或密码错误！"),
     VERIFY_CODE_ERROR(200100, "验证码错误！"),
     USER_HAS_EXIST_ERROR(200101, "用户已存在，请更换手机号重试"),
-
-    /**
-     * 运输模块-错误码
-     * 范围：200300~200399
-     */
-    VEHICLE_BUSY(200300, "车辆运输中，不允许操作！"),
-
 
     ;
     private final int code;

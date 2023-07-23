@@ -1,5 +1,7 @@
 package com.gexingw.shop.auth.config;
 
+import com.gexingw.shop.auth.handler.AccessDeniedHandler;
+import com.gexingw.shop.auth.handler.AuthenticationEntryPointHandler;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +43,9 @@ public class WebSecurityConfiguration {
 
         // 禁用密码模式的表单登录
 //        httpSecurity.formLogin().disable();
+
+        // 异常处理
+        httpSecurity.exceptionHandling().accessDeniedHandler(new AccessDeniedHandler()).authenticationEntryPoint(new AuthenticationEntryPointHandler());
 
         return httpSecurity.build();
     }

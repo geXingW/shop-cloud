@@ -19,10 +19,9 @@
             <artifactId>shop-common-core</artifactId>
         </dependency>
 
-        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>com.gexingw</groupId>
-            <artifactId>shop-common-oauth2</artifactId>
+            <artifactId>shop-common-redis</artifactId>
         </dependency>
 
         <dependency>

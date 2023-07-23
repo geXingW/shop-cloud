@@ -1,7 +1,7 @@
 package com.gexingw.shop.auth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gexingw.shop.common.oauth2.entity.User;
+import com.gexingw.shop.auth.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

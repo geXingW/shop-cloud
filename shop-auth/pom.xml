@@ -28,10 +28,21 @@
             <artifactId>shop-common-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.gexingw</groupId>
+            <artifactId>shop-common-db</artifactId>
+        </dependency>
+
+        <!--suppress VulnerableLibrariesLocal -->
+<!--        <dependency>-->
+<!--            <groupId>com.gexingw</groupId>-->
+<!--            <artifactId>shop-common-oauth2</artifactId>-->
+<!--        </dependency>-->
+
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>com.gexingw</groupId>
-            <artifactId>shop-common-oauth2</artifactId>
+            <artifactId>shop-common-redis</artifactId>
         </dependency>
 
         <!--suppress VulnerableLibrariesLocal -->
@@ -60,6 +71,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-authorization-server</artifactId>
         </dependency>
 
     </dependencies>

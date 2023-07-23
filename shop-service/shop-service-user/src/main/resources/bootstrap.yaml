@@ -24,5 +24,7 @@ spring:
         group: ${spring.cloud.nacos.discovery.group}
         file-extension: yaml
         shared-configs:
-          - data-id: database.yaml
+          - data-id: shop-common-database
+            refresh: true
+          - data-id: shop-common-redis
             refresh: true

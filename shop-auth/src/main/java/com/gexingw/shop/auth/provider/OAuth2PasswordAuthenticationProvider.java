@@ -1,6 +1,7 @@
 package com.gexingw.shop.auth.provider;
 
 import com.gexingw.shop.auth.token.OAuth2PasswordAuthenticationToken;
+import com.gexingw.shop.common.core.util.RespCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,7 @@ import java.util.Map;
  * @author GeXingW
  * @date 2023/7/9 13:51
  */
-public class OAuth2PasswordAuthenticationProvider extends AbstractOAuth2AuthenticationProvider{
+public class OAuth2PasswordAuthenticationProvider extends AbstractOAuth2AuthenticationProvider {
 
     public final static String GRANT_TYPE_PASSWORD = "password";
 
@@ -40,16 +41,17 @@ public class OAuth2PasswordAuthenticationProvider extends AbstractOAuth2Authenti
         Map<String, Object> parameters = passwordAuthentication.getAdditionalParameters();
         String username = (String) parameters.get(PARAM_USERNAME);
         if (StringUtils.isBlank(username)) {
-            throw new RuntimeException("用户名不能为空！");
+            throwError(RespCode.INVALID_USERNAME_OR_PASSWORD);
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
-            throw new RuntimeException("用户名或密码错误！");
+            throwError(RespCode.INVALID_USERNAME_OR_PASSWORD);
         }
 
+        //noinspection DataFlowIssue
         if (!passwordEncoder.matches(parameters.get(PARAM_PASSWORD).toString(), userDetails.getPassword())) {
-            throw new RuntimeException("用户名或密码错误！");
+            throwError(RespCode.INVALID_USERNAME_OR_PASSWORD);
         }
 
         return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), new ArrayList<>());

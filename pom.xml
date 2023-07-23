@@ -30,7 +30,7 @@
         <spring.cloud.alibaba.version>2021.0.5.0</spring.cloud.alibaba.version>
         <oauth2-authorization-server.version>0.4.3</oauth2-authorization-server.version>
 
-        <fastjson2.version>2.0.33</fastjson2.version>
+        <fastjson2.version>2.0.36</fastjson2.version>
         <druid.version>1.2.18</druid.version>
         <mysql-connector.verison>8.0.22</mysql-connector.verison>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
@@ -55,11 +55,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
         </dependency>
 
     </dependencies>
@@ -98,6 +93,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2-extension-spring5</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.gexingw</groupId>
                 <artifactId>shop-common-core</artifactId>
                 <version>${revision}</version>
@@ -117,7 +118,7 @@
 
             <dependency>
                 <groupId>com.gexingw</groupId>
-                <artifactId>shop-common-oauth2</artifactId>
+                <artifactId>shop-common-redis</artifactId>
                 <version>${revision}</version>
             </dependency>
 

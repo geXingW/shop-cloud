@@ -1,15 +1,13 @@
 package com.gexingw.shop.auth.provider;
 
+import com.gexingw.shop.common.core.util.RespCode;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.OAuth2RefreshToken;
-import org.springframework.security.oauth2.core.OAuth2Token;
+import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
@@ -55,20 +53,22 @@ public abstract class AbstractOAuth2AuthenticationProvider implements Authentica
         OAuth2ClientAuthenticationToken principal = (OAuth2ClientAuthenticationToken) authentication.getPrincipal();
         RegisteredClient registeredClient = principal.getRegisteredClient();
         if (registeredClient == null) {
-            throw new RuntimeException("客户端信息错误！");
+            throwError(RespCode.UN_AUTHORIZATION);
         }
 
         Authentication authenticatedInfo = this.getAuthenticatedInfo(authentication);
 
         // AccessToken
+        //noinspection DataFlowIssue
         DefaultOAuth2TokenContext accessTokenContext = DefaultOAuth2TokenContext.builder().registeredClient(registeredClient)
                 .principal(authenticatedInfo).tokenType(OAuth2TokenType.ACCESS_TOKEN).authorizedScopes(registeredClient.getScopes())
                 .authorizationGrantType(new AuthorizationGrantType(this.getGrantType())).build();
         OAuth2Token accessToken = tokenGenerator.generate(accessTokenContext);
         if (accessToken == null) {
-            throw new RuntimeException("AccessToken生成失败!");
+            throwError(RespCode.ERROR.getCode(), "AccessToken生成失败!");
         }
 
+        //noinspection DataFlowIssue
         OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, accessToken.getTokenValue(), accessToken.getIssuedAt(), accessToken.getExpiresAt(), accessTokenContext.getAuthorizedScopes());
 
         // 生成refreshToken
@@ -77,12 +77,12 @@ public abstract class AbstractOAuth2AuthenticationProvider implements Authentica
                 .build();
         OAuth2Token refreshToken = tokenGenerator.generate(refreshTokenContext);
         if (refreshToken == null) {
-            throw new RuntimeException("RefreshToken生成失败!");
+            throwError(RespCode.ERROR.getCode(), "RefreshToken生成失败!");
         }
         OAuth2RefreshToken oAuth2RefreshToken = (OAuth2RefreshToken) refreshToken;
 
         oAuth2AuthorizationService.save(
-                OAuth2Authorization.withRegisteredClient(registeredClient)
+                OAuth2Authorization.withRegisteredClient(registeredClient).authorizedScopes(registeredClient.getScopes())
                         .principalName(authentication.getName()).attribute(Principal.class.getName(), authenticatedInfo)
                         .authorizationGrantType(new AuthorizationGrantType(this.getGrantType()))
                         .accessToken(oAuth2AccessToken).refreshToken(oAuth2RefreshToken).build()
@@ -97,5 +97,12 @@ public abstract class AbstractOAuth2AuthenticationProvider implements Authentica
 
     protected abstract String getGrantType();
 
+    protected void throwError(RespCode respCode) {
+        throw new OAuth2AuthenticationException(new OAuth2Error(String.valueOf(respCode.getCode()), respCode.getMessage(), ""));
+    }
+
+    protected void throwError(Integer errCode, String errMessage) {
+        throw new OAuth2AuthenticationException(new OAuth2Error(String.valueOf(errCode), errMessage, ""));
+    }
 
 }

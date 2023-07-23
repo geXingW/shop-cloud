@@ -1,24 +1,26 @@
 package com.gexingw.shop.gateway.filter;
 
+import com.alibaba.fastjson2.JSON;
+import com.gexingw.shop.common.core.component.AuthInfo;
 import com.gexingw.shop.common.core.constant.AuthConstant;
-import com.gexingw.shop.common.oauth2.entity.User;
+import com.gexingw.shop.common.core.constant.TokenConstant;
+import com.gexingw.shop.common.core.util.R;
+import com.gexingw.shop.common.core.util.RespCode;
+import com.gexingw.shop.common.redis.util.RedisUtil;
 import com.gexingw.shop.gateway.component.AuthenticationConfigProperties;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
-import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.security.Principal;
+import java.nio.charset.StandardCharsets;
 
 /**
  * shop-cloud.
@@ -30,16 +32,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class AuthenticationFilter implements GlobalFilter, Ordered {
 
-    private final static String HEADER_TOKEN = "Authorization";
-
-    private final static String QUERY_TOKEN = "access_token";
-
-    private final static String TOKEN_TYPE = "Bearer";
-
     private final AuthenticationConfigProperties authenticationConfigProperties;
-
-
-    private final OAuth2AuthorizationService oAuth2AuthorizationService;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -50,25 +43,20 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
-        String token = this.getToken(request);
-        if (StringUtils.isBlank(token)) {
-            throw new RuntimeException("请先登录！");
+        // 获取请求投中的token信息
+        String authToken = getToken(request.getHeaders().getFirst("Authorization"));
+
+        // 获取认证信息
+        if (!RedisUtil.hasKey(String.format(AuthConstant.OAUTH_TOKEN_ACCESS_TOKEN_CACHE_NAME, authToken))) {
+            return this.handlerResponse(RespCode.UN_AUTHORIZATION, exchange.getResponse());
         }
 
-        OAuth2Authorization oAuth2Authorization = oAuth2AuthorizationService.findByToken(token, OAuth2TokenType.ACCESS_TOKEN);
-        if (oAuth2Authorization == null) {
-            throw new RuntimeException("Token不存在！");
+        AuthInfo authInfo = RedisUtil.get(String.format(AuthConstant.OAUTH_TOKEN_AUTH_INFO_CACHE_NAME, authToken));
+        if (authInfo == null) {
+            return this.handlerResponse(RespCode.UN_AUTHORIZATION, exchange.getResponse());
         }
 
-        UsernamePasswordAuthenticationToken principal = oAuth2Authorization.getAttribute(Principal.class.getName());
-        if (principal == null) {
-            throw new RuntimeException("未找到Principal");
-        }
-        ReactiveSecurityContextHolder.withAuthentication(principal);
-        User user = (User) principal.getPrincipal();
-        request.mutate().header(AuthConstant.HEADER_USER_ID, user.getId().toString());
-        request.mutate().header(AuthConstant.HEADER_USERNAME, user.getUsername());
-        request.mutate().header(AuthConstant.HEADER_USER_PHONE, user.getPhone());
+        request.mutate().header(AuthConstant.HEADER_AUTH_USER, JSON.toJSONString(authInfo));
 
         return chain.filter(exchange);
     }
@@ -78,21 +66,25 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         return Ordered.LOWEST_PRECEDENCE;
     }
 
-    public String getToken(ServerHttpRequest request) {
-        String token = request.getHeaders().getFirst(HEADER_TOKEN);
-        if (StringUtils.isBlank(token)) {
-            token = request.getQueryParams().getFirst(QUERY_TOKEN);
-        }
+    public String getToken(String authToken) {
+        int typeLength = TokenConstant.TYPE_BEARER.length();
+        if (authToken != null && authToken.length() > typeLength) {
+            String headStr = authToken.substring(0, typeLength).toLowerCase();
+            if (headStr.compareTo(TokenConstant.TYPE_BEARER) == 0) {
+                authToken = authToken.substring(typeLength + 1);
+            }
 
-        if (StringUtils.isBlank(token)) {
-            return "";
+            return authToken;
+        } else {
+            return null;
         }
+    }
 
-        if (StringUtils.startsWith(token, TOKEN_TYPE)) {
-            token = token.substring(7);
-        }
-
-        return token;
+    @SuppressWarnings("SameParameterValue")
+    private Mono<Void> handlerResponse(RespCode respCode, ServerHttpResponse response) {
+        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
+        DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(R.fail(respCode)).getBytes(StandardCharsets.UTF_8));
+        return response.writeWith(Flux.just(buffer));
     }
 
 }

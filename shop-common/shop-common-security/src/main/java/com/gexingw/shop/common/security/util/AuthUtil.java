@@ -1,6 +1,6 @@
 package com.gexingw.shop.common.security.util;
 
-import com.gexingw.shop.common.security.component.AuthInfo;
+import com.gexingw.shop.common.core.component.AuthInfo;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
