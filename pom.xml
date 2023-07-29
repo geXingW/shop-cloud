@@ -19,8 +19,8 @@
     <modules>
         <module>shop-common</module>
         <module>shop-gateway</module>
-        <module>shop-auth</module>
         <module>shop-service</module>
+        <module>shop-service/shop-service-auth</module>
     </modules>
 
     <properties>
