@@ -62,4 +62,9 @@ public class OAuth2PasswordAuthenticationProvider extends AbstractOAuth2Authenti
         return GRANT_TYPE_PASSWORD;
     }
 
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return OAuth2PasswordAuthenticationToken.class.isAssignableFrom(authentication);
+    }
+
 }

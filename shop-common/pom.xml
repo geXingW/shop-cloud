@@ -18,6 +18,7 @@
         <module>shop-common-db</module>
         <module>shop-common-security</module>
         <module>shop-common-redis</module>
+        <module>shop-common-captcha</module>
     </modules>
 
 </project>

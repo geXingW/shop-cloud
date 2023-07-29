@@ -16,6 +16,12 @@ import org.springframework.http.server.ServletServerHttpResponse;
 public class ResponseUtil {
 
     @SneakyThrows
+    public static void jsonResponse(ServletServerHttpResponse httpResponse, R<Object> r) {
+        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+        fastJsonHttpMessageConverter.write(r, MediaType.APPLICATION_JSON, httpResponse);
+    }
+
+    @SneakyThrows
     public static void jsonResponse(ServletServerHttpResponse httpResponse, RespCode respCode) {
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         fastJsonHttpMessageConverter.write(R.fail(respCode), MediaType.APPLICATION_JSON, httpResponse);

@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationGrantAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.token.DefaultOAuth2TokenContext;
@@ -44,9 +43,7 @@ public abstract class AbstractOAuth2AuthenticationProvider implements Authentica
     }
 
     @Override
-    public boolean supports(Class<?> authentication) {
-        return OAuth2AuthorizationGrantAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+    public abstract boolean supports(Class<?> authentication);
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

@@ -13,9 +13,9 @@ import java.util.Map;
  * @author GeXingW
  * @date 2023/7/9 13:51
  */
-public class OAuth2PasswordAuthenticationToken extends OAuth2AuthorizationGrantAuthenticationToken {
+public class OAuth2PasswdCaptchaAuthenticationToken extends OAuth2AuthorizationGrantAuthenticationToken {
 
-    private static final long serialVersionUID = 2234557139388874078L;
+    private static final long serialVersionUID = 7254232167377750758L;
 
     /**
      * Sub-class constructor.
@@ -23,7 +23,7 @@ public class OAuth2PasswordAuthenticationToken extends OAuth2AuthorizationGrantA
      * @param clientPrincipal      the authenticated client principal
      * @param additionalParameters the additional parameters
      */
-    public OAuth2PasswordAuthenticationToken(Authentication clientPrincipal, Map<String, Object> additionalParameters) {
+    public OAuth2PasswdCaptchaAuthenticationToken(Authentication clientPrincipal, Map<String, Object> additionalParameters) {
         super(new AuthorizationGrantType(OAuth2PasswdCaptchaAuthenticationProvider.GRANT_TYPE_PASSWORD_CAPTCHA), clientPrincipal, additionalParameters);
     }
 

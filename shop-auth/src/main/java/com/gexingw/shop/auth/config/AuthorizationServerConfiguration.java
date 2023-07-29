@@ -1,8 +1,11 @@
 package com.gexingw.shop.auth.config;
 
+import com.gexingw.shop.auth.convert.OAuth2PasswdAuthenticationConvert;
 import com.gexingw.shop.auth.convert.OAuth2PasswordAuthenticationConvert;
 import com.gexingw.shop.auth.handler.AccessDeniedHandler;
 import com.gexingw.shop.auth.handler.AuthenticationFailureHandler;
+import com.gexingw.shop.auth.handler.AuthenticationSuccessHandler;
+import com.gexingw.shop.auth.provider.OAuth2PasswdCaptchaAuthenticationProvider;
 import com.gexingw.shop.auth.provider.OAuth2PasswordAuthenticationProvider;
 import com.gexingw.shop.auth.service.CustomOAuth2AuthorizationConsentService;
 import com.gexingw.shop.auth.service.CustomOAuth2AuthorizationService;
@@ -31,18 +34,18 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeAuthenticationProvider;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientCredentialsAuthenticationProvider;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2RefreshTokenAuthenticationProvider;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.oauth2.server.authorization.web.authentication.*;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
+import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
@@ -80,12 +83,14 @@ public class AuthorizationServerConfiguration {
         authorizationServerConfigurer
                 .authorizationEndpoint(endpoint -> endpoint.consentPage(CUSTOM_CONSENT_PAGE_URI).errorResponseHandler(new AuthenticationFailureHandler()))
                 .tokenEndpoint(endpoint -> endpoint
-                        .errorResponseHandler(new AuthenticationFailureHandler())
-                        .accessTokenRequestConverter(delegatingAuthenticationConverter())
-                        .authenticationProvider(new OAuth2AuthorizationCodeAuthenticationProvider(authorizationService, tokenGenerator))
-                        .authenticationProvider(new OAuth2RefreshTokenAuthenticationProvider(authorizationService, tokenGenerator))
-                        .authenticationProvider(new OAuth2ClientCredentialsAuthenticationProvider(authorizationService, tokenGenerator))
-                        .authenticationProvider(new OAuth2PasswordAuthenticationProvider(authorizationService, tokenGenerator, userDetailsService, passwordEncoder))
+                                .errorResponseHandler(new AuthenticationFailureHandler())
+                                .accessTokenResponseHandler(new AuthenticationSuccessHandler())
+                                .accessTokenRequestConverter(delegatingAuthenticationConverter())
+//                        .authenticationProvider(new OAuth2AuthorizationCodeAuthenticationProvider(authorizationService, tokenGenerator))
+//                        .authenticationProvider(new OAuth2RefreshTokenAuthenticationProvider(authorizationService, tokenGenerator))
+//                        .authenticationProvider(new OAuth2ClientCredentialsAuthenticationProvider(authorizationService, tokenGenerator))
+                                .authenticationProvider(new OAuth2PasswordAuthenticationProvider(authorizationService, tokenGenerator, userDetailsService, passwordEncoder))
+                                .authenticationProvider(new OAuth2PasswdCaptchaAuthenticationProvider(authorizationService, tokenGenerator, userDetailsService, passwordEncoder))
                 )
                 .clientAuthentication(clientAuthentication -> clientAuthentication.errorResponseHandler(new AuthenticationFailureHandler()));
 
@@ -102,6 +107,7 @@ public class AuthorizationServerConfiguration {
     public DelegatingAuthenticationConverter delegatingAuthenticationConverter() {
         return new DelegatingAuthenticationConverter(Arrays.asList(
                 new OAuth2PasswordAuthenticationConvert(),
+                new OAuth2PasswdAuthenticationConvert(),
                 new OAuth2AuthorizationCodeAuthenticationConverter(),
                 new OAuth2ClientCredentialsAuthenticationConverter(),
                 new OAuth2RefreshTokenAuthenticationConverter(),
@@ -122,6 +128,11 @@ public class AuthorizationServerConfiguration {
     @Bean
     public OAuth2AuthorizationService oAuth2AuthorizationService() {
         return new CustomOAuth2AuthorizationService();
+    }
+
+    @Bean
+    public UserDetailsManager userDetailsManager(DataSource dataSource) {
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean

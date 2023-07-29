@@ -1,5 +1,6 @@
 package com.gexingw.shop.auth.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @date 2023/7/22 23:46
  */
 @Data
+@TableName("auth_user")
 @Accessors(chain = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 public class User implements UserDetails, Serializable, OAuth2AuthenticatedPrincipal {

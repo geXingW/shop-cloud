@@ -30,6 +30,7 @@ public class WebSecurityConfiguration {
         httpSecurity.authorizeHttpRequests(
                 authorize -> authorize
                         .antMatchers("/css/**", "/img/**", "/login", "/favicon.ico").permitAll()
+                        .mvcMatchers("/oauth2/captcha").permitAll()
                         .anyRequest().authenticated()
         );
 

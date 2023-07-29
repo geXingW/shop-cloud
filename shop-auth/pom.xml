@@ -34,15 +34,15 @@
         </dependency>
 
         <!--suppress VulnerableLibrariesLocal -->
-<!--        <dependency>-->
-<!--            <groupId>com.gexingw</groupId>-->
-<!--            <artifactId>shop-common-oauth2</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.gexingw</groupId>
+            <artifactId>shop-common-redis</artifactId>
+        </dependency>
 
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>com.gexingw</groupId>
-            <artifactId>shop-common-redis</artifactId>
+            <artifactId>shop-common-captcha</artifactId>
         </dependency>
 
         <!--suppress VulnerableLibrariesLocal -->
