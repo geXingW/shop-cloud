@@ -1,8 +1,8 @@
 package com.gexingw.shop.service.auth.config;
 
+import com.gexingw.shop.common.security.handler.AccessDeniedHandler;
 import com.gexingw.shop.service.auth.convert.OAuth2PasswdAuthenticationConvert;
 import com.gexingw.shop.service.auth.convert.OAuth2PasswordAuthenticationConvert;
-import com.gexingw.shop.service.auth.handler.AccessDeniedHandler;
 import com.gexingw.shop.service.auth.handler.AuthenticationFailureHandler;
 import com.gexingw.shop.service.auth.handler.AuthenticationSuccessHandler;
 import com.gexingw.shop.service.auth.provider.OAuth2PasswdCaptchaAuthenticationProvider;

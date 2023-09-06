@@ -1,5 +1,6 @@
 package com.gexingw.shop.gateway.filter;
 
+import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson2.JSON;
 import com.gexingw.shop.common.core.component.AuthInfo;
 import com.gexingw.shop.common.core.constant.AuthConstant;
@@ -56,7 +57,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             return this.handlerResponse(RespCode.UN_AUTHORIZATION, exchange.getResponse());
         }
 
-        request.mutate().header(AuthConstant.HEADER_AUTH_USER, JSON.toJSONString(authInfo));
+        request.mutate().header(AuthConstant.HEADER_AUTH_USER, Base64.encode(JSON.toJSONString(authInfo)));
 
         return chain.filter(exchange);
     }

@@ -1,7 +1,7 @@
 package com.gexingw.shop.service.auth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gexingw.shop.service.auth.entity.User;
+import com.gexingw.shop.service.auth.entity.AuthUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2023/7/9 14:46
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<AuthUser> {
 
 }
 

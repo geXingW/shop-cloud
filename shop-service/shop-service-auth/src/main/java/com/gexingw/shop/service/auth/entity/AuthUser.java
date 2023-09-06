@@ -25,7 +25,7 @@ import java.util.Map;
 @TableName("auth_user")
 @Accessors(chain = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
-public class User implements UserDetails, Serializable, OAuth2AuthenticatedPrincipal {
+public class AuthUser implements UserDetails, Serializable, OAuth2AuthenticatedPrincipal {
 
     private static final long serialVersionUID = -5697201612176275037L;
 
@@ -52,19 +52,9 @@ public class User implements UserDetails, Serializable, OAuth2AuthenticatedPrinc
     private String phone;
 
     /**
-     * 组织架构id
-     */
-    private Long deptId;
-
-    /**
-     * 用户类型：1、公司员工 2、司机
+     * 用户类型：1、管理员；2、用户
      */
     private Integer type;
-
-    /**
-     * 头像
-     */
-    private String avatar;
 
     /**
      * 状态:  1 正常 2 禁用

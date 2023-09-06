@@ -23,6 +23,7 @@
             <artifactId>shop-common-core</artifactId>
         </dependency>
 
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>com.gexingw</groupId>
             <artifactId>shop-common-db</artifactId>
@@ -38,6 +39,12 @@
         <dependency>
             <groupId>com.gexingw</groupId>
             <artifactId>shop-common-captcha</artifactId>
+        </dependency>
+
+        <!--suppress VulnerableLibrariesLocal -->
+        <dependency>
+            <groupId>com.gexingw</groupId>
+            <artifactId>shop-common-security</artifactId>
         </dependency>
 
         <!--suppress VulnerableLibrariesLocal -->

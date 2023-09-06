@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gexingw.shop.service.system.mapper.AdminMapper">
+
+    <select id="findByAuthUserId" resultType="com.gexingw.shop.service.system.vo.AdminAuthInfo$Info">
+        select id, auth_user_id as authUserId, username, dept_id as deptId, job_id as jobId, is_admin as isAdmin
+        from admin where auth_user_id = #{authUserId}
+    </select>
+
+</mapper>

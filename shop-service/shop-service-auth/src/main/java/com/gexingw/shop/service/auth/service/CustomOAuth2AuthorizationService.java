@@ -1,9 +1,9 @@
 package com.gexingw.shop.service.auth.service;
 
-import com.gexingw.shop.service.auth.entity.User;
 import com.gexingw.shop.common.core.component.AuthInfo;
 import com.gexingw.shop.common.core.constant.AuthConstant;
 import com.gexingw.shop.common.redis.util.RedisUtil;
+import com.gexingw.shop.service.auth.entity.AuthUser;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -124,11 +124,29 @@ public class CustomOAuth2AuthorizationService implements OAuth2AuthorizationServ
         Set<String> authorizedScopes = authorization.getAuthorizedScopes();
         AuthInfo authInfo = AuthInfo.builder().clientId(authClientId).scopes(authorizedScopes).build();
 
+        // 缓存用户信息
+//        UsernamePasswordAuthenticationToken authenticationToken = authorization.getAttribute(Principal.class.getName());
+//        if (authenticationToken == null) {
+//            // 客户端模式，没有用户信息
+//            RedisUtil.set(String.format(AuthConstant.OAUTH_TOKEN_AUTH_INFO_CACHE_NAME, accessToken), authInfo, expireSeconds);
+//            return;
+//        }
+
+//        AuthUser authUser = (AuthUser) authenticationToken.getPrincipal();
+////        authInfo.setId(authUser.getId()).setUsername(authUser.getUsername()).setPhone(authUser.getPhone());
+//        authInfo.setUsername(authUser.getUsername()).setPhone(authUser.getPhone());
+//
+//        // 管理员
+//        if (AuthUserTypeEnum.ADMIN.getCode().equals(authUser.getType())) {
+//
+//        }
+
+
         // 密码模式，缓存用户信息
         UsernamePasswordAuthenticationToken authenticationToken = authorization.getAttribute(Principal.class.getName());
         if (authenticationToken != null) {
-            User user = (User) authenticationToken.getPrincipal();
-            authInfo.setId(user.getId()).setUsername(user.getUsername()).setPhone(user.getPhone());
+            AuthUser authUser = (AuthUser) authenticationToken.getPrincipal();
+            authInfo.setId(authUser.getId()).setUsername(authUser.getUsername()).setPhone(authUser.getPhone());
         }
 
         redisTemplate.setValueSerializer(valueSerializer);

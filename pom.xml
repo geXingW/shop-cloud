@@ -20,7 +20,7 @@
         <module>shop-common</module>
         <module>shop-gateway</module>
         <module>shop-service</module>
-        <module>shop-service/shop-service-auth</module>
+        <module>shop-service-api</module>
     </modules>
 
     <properties>
@@ -37,6 +37,7 @@
         <apache-common.version>3.12.0</apache-common.version>
         <hutool.version>5.8.18</hutool.version>
         <easy-captcha.version>2.2.2</easy-captcha.version>
+        <powermock.version>2.0.9</powermock.version>
 
         <!-- 构建相关 -->
         <flatten-maven-plugin.verion>1.2.7</flatten-maven-plugin.verion>
@@ -164,6 +165,34 @@
                 <artifactId>captcha-spring-boot-starter</artifactId>
                 <version>${easy-captcha.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-core</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito2</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>3.12.4</version>
+                <scope>test</scope>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

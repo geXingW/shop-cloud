@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>shop-service-user</artifactId>
+    <artifactId>shop-service-authUser</artifactId>
     <version>${revision}</version>
 
     <dependencies>

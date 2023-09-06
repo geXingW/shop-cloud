@@ -1,0 +1,30 @@
+server:
+  port: 9004
+
+spring:
+  application:
+    name: shop-service-system
+
+  mvc:
+    servlet:
+      path: "/system"
+
+  cloud:
+    nacos:
+      server-addr: ${NACOS_HOST:localhost}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+
+      discovery:
+        namespace: ${NACOS_NAMESPACE:shop-cloud}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+
+      config:
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        group: ${spring.cloud.nacos.discovery.group}
+        file-extension: yaml
+        shared-configs:
+          - data-id: shop-common-database.yaml
+            group: DEFAULT_GROUP
+          - data-id: shop-common-redis.yaml
+            group: DEFAULT_GROUP
