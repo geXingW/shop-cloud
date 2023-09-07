@@ -18,8 +18,8 @@ import java.util.Objects;
 @Configuration
 public class RateLimiterConfiguration {
 
-    @Bean(name = "ipKeyResolver")
-    public KeyResolver ipKeyResolver() {
+    @Bean
+    public KeyResolver remoteIpResolver() {
         return exchange -> {
             String hostAddress = Objects.requireNonNull(exchange.getRequest()
                     .getRemoteAddress()).getAddress().getHostAddress();

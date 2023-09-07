@@ -37,7 +37,7 @@ spring:
             # 单次请求消费的token数量
             redis-rate-limiter.requestedTokens: 1
             # 自定义的KeyResolver（从请求exchange解析id，用于区分限流的独立单元，如用户ID、remoteAddr、sessionId等）
-            key-resolver: "#{@ipKeyResolver}"
+            key-resolver: "#{@remoteIpResolver}"
 
     nacos:
       server-addr: ${NACOS_HOST:localhost}
