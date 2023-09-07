@@ -1,0 +1,10 @@
+spring:
+  task:
+    execution:
+      shutdown:
+        await-termination-period: 121s
+      pool:
+        queue-capacity: 100
+        keep-alive: 130s
+        max-size: 50
+      thread-name-prefix: shop-async-thread-

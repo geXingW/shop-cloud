@@ -28,3 +28,14 @@ spring:
             group: DEFAULT_GROUP
           - data-id: shop-common-redis.yaml
             group: DEFAULT_GROUP
+  task:
+    execution:
+      pool:
+        core-size: 2
+        max-size: 4
+        queue-capacity: 100
+        keep-alive: 60
+
+      thread-name-prefix: shop-cloud-async-
+      shutdown:
+        await-termination-period: 3m

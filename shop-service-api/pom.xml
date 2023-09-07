@@ -6,11 +6,11 @@
     <parent>
         <groupId>com.gexingw</groupId>
         <artifactId>shop</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
-    <groupId>org.example</groupId>
     <artifactId>shop-service-api</artifactId>
+    <version>${revision}</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

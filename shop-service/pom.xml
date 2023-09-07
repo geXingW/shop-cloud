@@ -23,7 +23,7 @@
         <module>shop-service-product</module>
         <module>shop-service-auth</module>
         <module>shop-service-system</module>
-        <module>shop-service-auth</module>
+        <module>shop-service-user</module>
     </modules>
 
     <dependencies>
