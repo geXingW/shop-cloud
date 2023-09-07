@@ -19,6 +19,7 @@
         <module>shop-common-security</module>
         <module>shop-common-redis</module>
         <module>shop-common-captcha</module>
+        <module>shop-common-log</module>
     </modules>
 
 </project>

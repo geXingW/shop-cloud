@@ -8,6 +8,36 @@ spring:
   cloud:
     gateway:
       enabled: true
+#      routes:
+#        - id: "shop-service-user"
+#          uri: "lb://shop-service-user"
+#          predicates:
+#            - name: "Path"
+#              args:
+#                pattern: "/user/**"
+#          filters:
+#            - name: "RequestRateLimiter"
+#              args:
+#                deny-empty-key: false
+#                redis-rate-limiter.replenishRate: 10
+#                redis-rate-limiter.burstCapacity: 20
+#                redis-rate-limiter.requestedTokens: 1
+#                key-resolver: "#{@ipKeyResolver}"
+
+      default-filters:
+        # 请求限速配置
+        - name: RequestRateLimiter
+          args:
+            # 如果keyResolver返回空key，则拒绝该请求403，默认true表示拒绝，false则表示允许访问
+            deny-empty-key: false
+            # 令牌桶算法每秒补充的token数量（每秒的请求数量）spring-boot-starter-data-redis-reactive
+            redis-rate-limiter.replenishRate: 10
+            # 令牌桶算法token最大数量（每秒的最大请求数量）
+            redis-rate-limiter.burstCapacity: 15
+            # 单次请求消费的token数量
+            redis-rate-limiter.requestedTokens: 1
+            # 自定义的KeyResolver（从请求exchange解析id，用于区分限流的独立单元，如用户ID、remoteAddr、sessionId等）
+            key-resolver: "#{@ipKeyResolver}"
 
     nacos:
       server-addr: ${NACOS_HOST:localhost}
