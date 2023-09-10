@@ -3,6 +3,7 @@ package com.gexingw.shop.service.product;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -13,7 +14,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-@ComponentScan({"com.gexingw.shop.service.product", "com.gexingw.shop.common"})
+@EnableFeignClients(basePackages = {"com.gexingw.shop.api.*.feign"})
+@ComponentScan({"com.gexingw.shop.service", "com.gexingw.shop.common", "com.gexingw.shop.api"})
 public class ShopProductServiceApplication {
 
     public static void main(String[] args) {

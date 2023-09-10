@@ -9,6 +9,7 @@ spring:
     servlet:
       path: "/product"
 
+
   cloud:
     nacos:
       server-addr: ${NACOS_HOST:localhost}
@@ -28,3 +29,6 @@ spring:
             group: DEFAULT_GROUP
           - data-id: shop-common-redis.yaml
             group: DEFAULT_GROUP
+feign:
+  circuitbreaker:
+    enabled: true

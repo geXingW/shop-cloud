@@ -5,22 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.gexingw</groupId>
-        <artifactId>shop</artifactId>
+        <artifactId>shop-api</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>shop-common</artifactId>
+    <artifactId>shop-api-user</artifactId>
     <version>${revision}</version>
-    <packaging>pom</packaging>
 
-    <modules>
-        <module>shop-common-core</module>
-        <module>shop-common-db</module>
-        <module>shop-common-security</module>
-        <module>shop-common-redis</module>
-        <module>shop-common-captcha</module>
-        <module>shop-common-log</module>
-        <module>shop-common-openfeign</module>
-    </modules>
+    <dependencies>
+
+        <!--suppress VulnerableLibrariesLocal -->
+        <dependency>
+            <groupId>com.gexingw</groupId>
+            <artifactId>shop-common-openfeign</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

@@ -4,6 +4,7 @@ import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson2.JSON;
 import com.gexingw.shop.common.core.component.AuthInfo;
 import com.gexingw.shop.common.core.constant.AuthConstant;
+import com.gexingw.shop.common.core.constant.RequestConstant;
 import com.gexingw.shop.common.core.constant.TokenConstant;
 import com.gexingw.shop.common.core.util.R;
 import com.gexingw.shop.common.core.util.RespCode;
@@ -56,8 +57,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         if (authInfo == null) {
             return this.handlerResponse(RespCode.UN_AUTHORIZATION, exchange.getResponse());
         }
-
-        request.mutate().header(AuthConstant.HEADER_AUTH_USER, Base64.encode(JSON.toJSONString(authInfo)));
+        request.mutate().header(RequestConstant.HEADER_AUTH_USER, Base64.encode(JSON.toJSONString(authInfo)));
 
         return chain.filter(exchange);
     }

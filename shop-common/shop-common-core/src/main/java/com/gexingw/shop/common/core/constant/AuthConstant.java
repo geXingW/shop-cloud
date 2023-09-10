@@ -8,8 +8,6 @@ package com.gexingw.shop.common.core.constant;
  */
 public interface AuthConstant {
 
-    String HEADER_AUTH_USER = "SHOP_AUTH_USER";
-
     /**
      * OAuth2的Access Token缓存
      */

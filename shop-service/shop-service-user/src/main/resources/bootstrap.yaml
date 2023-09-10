@@ -5,10 +5,6 @@ spring:
   application:
     name: shop-service-user
 
-  mvc:
-    servlet:
-      path: "/user"
-
   cloud:
     nacos:
       server-addr: ${NACOS_HOST:localhost}

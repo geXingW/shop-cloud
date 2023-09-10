@@ -31,6 +31,12 @@
 
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
+            <groupId>com.gexingw</groupId>
+            <artifactId>shop-api-user</artifactId>
+        </dependency>
+
+        <!--suppress VulnerableLibrariesLocal -->
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>

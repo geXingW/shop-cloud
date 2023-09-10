@@ -3,7 +3,7 @@ package com.gexingw.shop.common.security.filter;
 import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson2.JSON;
 import com.gexingw.shop.common.core.component.AuthInfo;
-import com.gexingw.shop.common.core.constant.AuthConstant;
+import com.gexingw.shop.common.core.constant.RequestConstant;
 import com.gexingw.shop.common.security.component.Authentication;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +30,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @SneakyThrows
     protected void doFilterInternal(@Nullable HttpServletRequest request, @Nullable HttpServletResponse response, @Nullable FilterChain filterChain) {
         if (request != null) {
-            String authHeader = request.getHeader(AuthConstant.HEADER_AUTH_USER);
+            String authHeader = request.getHeader(RequestConstant.HEADER_AUTH_USER);
             AuthInfo authInfo = new AuthInfo();
             if (!StringUtils.isBlank(authHeader)) {
                 authInfo = JSON.parseObject(Base64.decode(authHeader), AuthInfo.class);

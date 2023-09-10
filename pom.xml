@@ -20,7 +20,7 @@
         <module>shop-common</module>
         <module>shop-gateway</module>
         <module>shop-service</module>
-        <module>shop-service-api</module>
+        <module>shop-api</module>
     </modules>
 
     <properties>
@@ -38,6 +38,7 @@
         <hutool.version>5.8.18</hutool.version>
         <easy-captcha.version>2.2.2</easy-captcha.version>
         <powermock.version>2.0.9</powermock.version>
+        <feign-okhttp.version>11.10</feign-okhttp.version>
 
         <!-- 构建相关 -->
         <flatten-maven-plugin.verion>1.2.7</flatten-maven-plugin.verion>
@@ -167,6 +168,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.gexingw</groupId>
+                <artifactId>shop-common-openfeign</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.pig4cloud.plugin</groupId>
                 <artifactId>captcha-spring-boot-starter</artifactId>
                 <version>${easy-captcha.version}</version>
@@ -199,6 +206,17 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>${feign-okhttp.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.gexingw</groupId>
+                <artifactId>shop-api-user</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

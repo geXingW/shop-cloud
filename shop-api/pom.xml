@@ -9,8 +9,12 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>shop-service-api</artifactId>
+    <artifactId>shop-api</artifactId>
     <version>${revision}</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>shop-api-user</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
